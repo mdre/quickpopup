@@ -1,0 +1,161 @@
+package com.awesomecontrols.quickpopup;
+
+import com.vaadin.flow.component.ClientCallable;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.HasComponents;
+import com.vaadin.flow.component.HasSize;
+import com.vaadin.flow.component.HasStyle;
+import com.vaadin.flow.component.HasTheme;
+import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.StyleSheet;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.polymertemplate.Id;
+import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+@Tag("quick-popup")
+@StyleSheet("frontend://bower_components/menubar/cards.css")
+@HtmlImport("bower_components/menubar/quick-popup.html")
+public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  HasSize, HasTheme, HasStyle, HasComponents {
+
+    private final static Logger LOGGER = Logger.getLogger(QuickPopup.class .getName());
+    static {
+        if (LOGGER.getLevel() == null) {
+            LOGGER.setLevel(Level.FINER);
+        }
+    }
+    
+    @Id("popup")
+    Div popup;
+    
+    
+    double top;
+    double left;
+    
+    
+    String targetId;
+    
+    
+    public enum Align {
+        TOP_RIGHT,
+        BOTTOM_RIGHT,
+        BOTTOM_LEFT,
+        TOP_LEFT
+    }
+    
+    Align alignTo = Align.TOP_RIGHT;
+    
+    int x_offset = 0;
+    int y_offset = 0;
+    
+    /**
+     * the content to be shown
+     */
+    Component content;
+    
+    // overlay utilziado para mostrar el QuickPopup
+    QuickPopupOverlay overlay;
+        
+    public QuickPopup(String target, Component content) {
+        this.targetId = target;
+        getElement().setProperty("targetid", target);
+        
+        overlay = new QuickPopupOverlay();
+        this.content = content;
+        
+        this.popup.removeAll();
+        this.popup.add(this.content);
+        
+        this.overlay.addComponent(this);
+    }
+    
+    public void setPosition(double top, double left) {
+        this.top = top;
+        this.left = left;
+        popup.getStyle().set("top", ""+top+"px");
+        popup.getStyle().set("left", ""+left+"px");
+    }
+    
+    public void setContent(Component content) {
+        this.popup.removeAll();
+        this.popup.add(content);
+    }
+    
+    public void clearContent() {
+        this.popup.removeAll();
+    }
+    
+//    public void setPopupForComponentId(String target) {
+//        this.targetId = target;
+//    }
+    
+    /**
+     * Show the popup
+     */
+    public void show() {
+        LOGGER.log(Level.FINER, "llamando a updatePositionAndShow...");
+        UI.getCurrent().add(overlay);
+        
+        getElement().callFunction("updatePositionAndShow",this.targetId);
+    }
+    
+    /**
+     * Hide the popup
+     */
+    public void hide() {
+        this.overlay.hide();
+    }
+    
+    @ClientCallable
+    private void targetPosition(double top, double right, double bottom, double left) {
+        LOGGER.log(Level.FINER, "showInternal!!!!");
+        // agregar el overlay
+        double popupTop = top;
+        double popupLeft = right;
+        
+        switch (this.alignTo) {
+            case TOP_RIGHT:
+                popupTop = top + this.y_offset;
+                popupLeft = right + this.x_offset;
+                break;
+                
+            case BOTTOM_RIGHT:
+                popupTop = bottom + this.y_offset;
+                popupLeft = right + this.x_offset;
+                break;
+                
+            case BOTTOM_LEFT:
+                popupTop = bottom + this.y_offset;
+                popupLeft = left + this.x_offset;
+                break;
+                
+            case TOP_LEFT:
+                popupTop = top + this.y_offset;
+                popupLeft = left + this.x_offset;
+                break;
+        }
+        
+        this.setPosition(popupTop,popupLeft);
+    }
+    
+    public QuickPopup setAlign(Align align) {
+        this.alignTo = align;
+        return this;
+    }
+    
+    public QuickPopup setXOffset(int offset) {
+        this.x_offset = offset;
+        return this;
+    }
+    
+    public QuickPopup setYOffset(int offset) {
+        this.y_offset = offset;
+        return this;
+    }
+    
+    
+}
+
