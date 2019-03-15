@@ -1,2 +1,2 @@
-rootProject.name = 'quickpopup'
+rootProject.name = 'flowquickpopup'
 enableFeaturePreview('IMPROVED_POM_SUPPORT')

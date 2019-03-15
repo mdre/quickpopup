@@ -58,7 +58,12 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
     
     // overlay utilziado para mostrar el QuickPopup
     QuickPopupOverlay overlay;
-        
+    
+    /**
+     * Create a popup near to the target component
+     * @param target is the ID of the target component
+     * @param content  the popup content.
+     */
     public QuickPopup(String target, Component content) {
         this.targetId = target;
         getElement().setProperty("targetid", target);
@@ -72,18 +77,25 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
         this.overlay.addComponent(this);
     }
     
-    public void setPosition(double top, double left) {
+    private void setPosition(double top, double left) {
         this.top = top;
         this.left = left;
         popup.getStyle().set("top", ""+top+"px");
         popup.getStyle().set("left", ""+left+"px");
     }
     
+    /**
+     * Set the popup content 
+     * @param content to shown
+     */
     public void setContent(Component content) {
         this.popup.removeAll();
         this.popup.add(content);
     }
     
+    /**
+     * Remove de popup content
+     */
     public void clearContent() {
         this.popup.removeAll();
     }
@@ -141,16 +153,31 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
         this.setPosition(popupTop,popupLeft);
     }
     
+    /**
+     * Set the component align based on target ID
+     * @param align enum with the available target aligns
+     * @return this
+     */
     public QuickPopup setAlign(Align align) {
         this.alignTo = align;
         return this;
     }
     
+    /**
+     * Set the x offset to be added to the align 
+     * @param offset in pixels
+     * @return this
+     */
     public QuickPopup setXOffset(int offset) {
         this.x_offset = offset;
         return this;
     }
     
+    /**
+     * Set the y offset to be added to the align 
+     * @param offset in pixels
+     * @return this
+     */
     public QuickPopup setYOffset(int offset) {
         this.y_offset = offset;
         return this;
