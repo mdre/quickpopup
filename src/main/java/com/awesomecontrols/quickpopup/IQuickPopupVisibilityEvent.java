@@ -5,18 +5,10 @@
  */
 package com.awesomecontrols.quickpopup;
 
-import com.vaadin.flow.dom.Element;
-import com.vaadin.flow.templatemodel.TemplateModel;
-
 /**
  *
  * @author Marcelo D. Ré {@literal <marcelo.re@gmail.com>}
  */
-public interface IQuickPopupModel extends TemplateModel {
-    double getTop();
-    double getLeft();
-    
-    String getTargetId();
-    String setTargetId(Element targetid);
-    
+public interface IQuickPopupVisibilityEvent {
+    public void visibilityChanged();
 }

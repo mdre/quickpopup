@@ -13,6 +13,9 @@ import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
+import com.vaadin.flow.dom.Element;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,7 +39,7 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
     double left;
     
     
-    String targetId;
+    Element targetId;
     
     
     public enum Align {
@@ -52,6 +55,12 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
     int y_offset = 0;
     
     /**
+     * track the visibility state off the component.
+     */
+    private boolean visibilityState = false;
+    private List<IQuickPopupVisibilityEvent> visibilityEventListeners;
+    
+    /**
      * the content to be shown
      */
     Component content;
@@ -64,9 +73,9 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
      * @param target is the ID of the target component
      * @param content  the popup content.
      */
-    public QuickPopup(String target, Component content) {
+    public QuickPopup(Element target, Component content) {
         this.targetId = target;
-        getElement().setProperty("targetid", target);
+        
         
         overlay = new QuickPopupOverlay();
         this.content = content;
@@ -111,7 +120,10 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
         LOGGER.log(Level.FINER, "llamando a updatePositionAndShow...");
         UI.getCurrent().add(overlay);
         
+        LOGGER.log(Level.FINER, "targetId: "+this.targetId);
         getElement().callFunction("updatePositionAndShow",this.targetId);
+        
+        this.fireVisibilityChangeEvent();
     }
     
     /**
@@ -119,6 +131,7 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
      */
     public void hide() {
         this.overlay.hide();
+        this.fireVisibilityChangeEvent();
     }
     
     @ClientCallable
@@ -176,13 +189,46 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
     /**
      * Set the y offset to be added to the align 
      * @param offset in pixels
-     * @return this
+     * @return this 
      */
     public QuickPopup setYOffset(int offset) {
         this.y_offset = offset;
         return this;
     }
     
+    public boolean isVisible() {
+        return this.visibilityState;
+    }
     
+    /**
+     * Add a visibility change listener.
+     * @param event listener
+     * @return this
+     */
+    public QuickPopup addVisibilityChangeListener(IQuickPopupVisibilityEvent event) {
+        if (this.visibilityEventListeners == null) {
+            this.visibilityEventListeners = new ArrayList<>();
+        }
+        this.visibilityEventListeners.add(event);
+        return this;
+    }
+    
+    /**
+     * Remove the event listener.
+     * @param event listener
+     * @return true if the listener exist and was removed.
+     */
+    public boolean removeVisibilityChangeListener(IQuickPopupVisibilityEvent event) {
+        this.visibilityEventListeners.remove(event);
+        return this.visibilityEventListeners.remove(event);
+    }
+    
+    
+    
+    private void fireVisibilityChangeEvent() {
+        for (IQuickPopupVisibilityEvent visibilityEventListener : this.visibilityEventListeners) {
+            visibilityEventListener.visibilityChanged();
+        }
+    }
 }
 

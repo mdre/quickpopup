@@ -51,7 +51,8 @@
                 //var targetid = this.getProperty("targetid");
                 
                 // 
-                var rect = document.getElementById(targetid).getBoundingClientRect();
+                console.log("Searching ",targetid,"...");
+                var rect = targetid.getBoundingClientRect();
                 console.log(rect.top, rect.right, rect.bottom, rect.left);
 
                 this.$server.targetPosition(rect.top, rect.right, rect.bottom, rect.left);
