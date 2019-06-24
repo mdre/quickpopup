@@ -14,6 +14,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.dom.Element;
+import com.vaadin.flow.dom.Style;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -198,6 +199,12 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
     
     public boolean isVisible() {
         return this.visibilityState;
+    }
+    
+    
+    @Override
+    public Style getStyle() {
+        return popup.getStyle();
     }
     
     /**

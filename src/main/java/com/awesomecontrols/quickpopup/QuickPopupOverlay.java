@@ -25,25 +25,27 @@ class QuickPopupOverlay extends PolymerTemplate<TemplateModel>  {
     
     @Id("overlay")
     Div overlay;
+    QuickPopup quickPopup;
     
     public QuickPopupOverlay() {
     }
     
     public void addComponent(QuickPopup qp) {
-        overlay.add(qp);
+        quickPopup = qp;
+        overlay.add(quickPopup);
     }
     
     /**
      * Close and remove the overlay
      */
     public void hide() {
-        this.onOverlayClick();
+        UI.getCurrent().remove(this);
     }
     
     @ClientCallable
     private void onOverlayClick() {
         LOGGER.log(Level.INFO, "Overlay Click detectado!");
-        UI.getCurrent().remove(this);
+        this.quickPopup.hide();
     }
     
     

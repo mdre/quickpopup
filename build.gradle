@@ -21,6 +21,7 @@ apply plugin: 'signing'
 def sonatypeUser = credentials.sonatypeUser
 def sonatypePassword = credentials.sonatypePassword
 
+description = rootProject.name
 
 // ejecutar: gradle idea 
 // para que inicialize el proyecto y baje los javadocs.
