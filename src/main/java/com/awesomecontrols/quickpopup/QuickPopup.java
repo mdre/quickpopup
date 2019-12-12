@@ -1,5 +1,10 @@
 package com.awesomecontrols.quickpopup;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.vaadin.flow.component.ClientCallable;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
@@ -8,24 +13,20 @@ import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.HasTheme;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.dependency.HtmlImport;
-import com.vaadin.flow.component.dependency.StyleSheet;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.dom.Style;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-@Tag("quick-popup")
-@StyleSheet("frontend://bower_components/menubar/cards.css")
-@HtmlImport("bower_components/menubar/quick-popup.html")
+@Tag("quick-popup") 
+//@StyleSheet("frontend://bower_components/menubar/cards.css")
+@JsModule("./quickpopup/quick-popup.js")
 public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  HasSize, HasTheme, HasStyle, HasComponents {
+    private static final long serialVersionUID = 8843104328921005320L;
 
-    private final static Logger LOGGER = Logger.getLogger(QuickPopup.class .getName());
+    private final static Logger LOGGER = Logger.getLogger(QuickPopup.class.getName());
     static {
         if (LOGGER.getLevel() == null) {
             LOGGER.setLevel(Level.FINER);
@@ -35,10 +36,8 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
     @Id("popup")
     Div popup;
     
-    
     double top;
     double left;
-    
     
     Element targetId;
     
@@ -59,7 +58,7 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
      * track the visibility state off the component.
      */
     private boolean visibilityState = false;
-    private List<IQuickPopupVisibilityEvent> visibilityEventListeners;
+    private List<IQuickPopupVisibilityEvent> visibilityEventListeners = new ArrayList<>();
     
     /**
      * the content to be shown
@@ -122,7 +121,7 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
         UI.getCurrent().add(overlay);
         
         LOGGER.log(Level.FINER, "targetId: "+this.targetId);
-        getElement().callFunction("updatePositionAndShow",this.targetId);
+        getElement().callJsFunction("updatePositionAndShow",this.targetId);
         
         this.fireVisibilityChangeEvent();
     }
@@ -233,6 +232,7 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
     
     
     private void fireVisibilityChangeEvent() {
+
         for (IQuickPopupVisibilityEvent visibilityEventListener : this.visibilityEventListeners) {
             visibilityEventListener.visibilityChanged();
         }
