@@ -1,5 +1,6 @@
 .gradle/
 .nb-gradle/
+
 **/build/
 **/target/
 rebel.xml
@@ -10,6 +11,7 @@ rebel.xml
 .*
 !.gitignore
 /toVaadinDirectory/
+bin
 node_modules
 package-lock.json
 package.json
