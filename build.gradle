@@ -325,21 +325,21 @@ uploadArchives {
                 authentication(userName: credentials.sonatypeUser, password: credentials.sonatypePassword)
             }
             
-            pom.groupId = "$group"
-            pom.artifactId = "$artifactId"
+            pom.groupId = "com.github.mdre"
+            pom.artifactId = "flowquickpopup"
             
             
             pom.project {
-                name "$pjName"
+                name "QuickPopup component for Vaadin Flow"
                 packaging 'jar'
                 // optionally artifactId can be defined here 
-                description "$pjDescription"
-                url "$pjUrl"
+                description "QuickPopup for Vaadin 14+."
+                url "https://github.com/mdre/quickpopup"
 
                 scm {
-                    connection "$scmConnection"
-                    developerConnection "$scmDeveloperConnection"
-                    url "$scmUrl"
+                    connection "scm:git:git://github.com/mdre/quickpopup.git"
+                    developerConnection "scm:git:ssh://github.com/mdre/quickpopup.git"
+                    url "https://github.com/mdre/quickpopup"
                 }
 
                 licenses {
