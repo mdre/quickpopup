@@ -7,4 +7,9 @@ import com.vaadin.flow.server.VaadinServletConfiguration;
 
 @WebServlet(urlPatterns = "/*", name = "VaadinFlowLabServlet", asyncSupported = true)
 public class VaadinFlowLabServlet extends VaadinServlet {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 }

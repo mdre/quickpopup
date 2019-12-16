@@ -8,6 +8,7 @@ import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.Id;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.templatemodel.TemplateModel;
@@ -45,9 +46,9 @@ class QuickPopupOverlay extends PolymerTemplate<TemplateModel>  {
         UI.getCurrent().remove(this);
     }
     
-    @ClientCallable
+    @EventHandler
     private void onOverlayClick() {
-        LOGGER.log(Level.INFO, "Overlay Click detectado!");
+        LOGGER.log(Level.FINER, "Overlay Click detectado!");
         this.quickPopup.hide();
     }
     

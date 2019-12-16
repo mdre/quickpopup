@@ -267,10 +267,10 @@ task createVaadinDirectoryRelease(type: Zip) {
 // correr en jetty. Ejecutar: 
 // gradle appStart
 gretty {
-  httpPort = 8081
-  contextPath = '/quickpopup'
-  servletContainer = 'jetty9.4'
-  // ... many more properties
+    httpPort = 8081
+    contextPath = '/quickpopup'
+    servletContainer = 'jetty9.4'
+    // ... many more properties
 }
 
 

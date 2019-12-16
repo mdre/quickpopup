@@ -1,8 +1,6 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 
 import "./card-styles.js";
-import "./QuickPopupEvents.js";
-
 
 /**
  * `quick-popup`
@@ -23,7 +21,7 @@ class QuickPopup extends PolymerElement {
 
             <div id="popup" 
                 class="popup card card-1"
-                onClick="onPopupClick(this, event);"
+                on-click="onPopupClick"
                 >
             </div>
             `;
@@ -44,6 +42,10 @@ class QuickPopup extends PolymerElement {
         console.log(rect.top, rect.right, rect.bottom, rect.left);
 
         this.$server.targetPosition(rect.top, rect.right, rect.bottom, rect.left);
+    }
+
+    onPopupClick(event) {
+        event.stopPropagation();
     }
 }
 

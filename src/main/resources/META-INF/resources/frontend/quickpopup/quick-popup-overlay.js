@@ -1,5 +1,5 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import './QuickPopupEvents.js';
+//import { onOverlayClick } from './QuickPopupOverlayEvents.js';
 
 /**
  * `menu-bar-overlay`
@@ -34,7 +34,7 @@ class QuickPopupOverlay extends PolymerElement {
 
                 <div id="overlay" 
                     class="overlay"
-                    onClick="onOverlayClick(this, event);"
+                    on-click="onOverlayClick"
                     >
                 </div>
             `
@@ -44,6 +44,10 @@ class QuickPopupOverlay extends PolymerElement {
         return 'quick-popup-overlay';
     }
 
+    // onOverlayClick(overlayElement, event) {
+    //     var flowElement = overlayElement.parentNode.host;
+    //     flowElement.$server.onOverlayClick();
+    // }
 }
 
 customElements.define(QuickPopupOverlay.is, QuickPopupOverlay);
