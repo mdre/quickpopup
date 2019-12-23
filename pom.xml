@@ -4,16 +4,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.mdre</groupId>
-    <artifactId>quickpop</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <name>quickpop</name>
+    <artifactId>flowquickpopup</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+    <name>flowquickpopup</name>
     <description>QuickPopup component for Vaadin Flow 14.+</description>
 
     <properties>
         <vaadin.version>14.0.13</vaadin.version>
 
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -87,7 +87,7 @@
         <dependency>
             <groupId>com.vaadin</groupId>
             <!-- Replace artifactId with vaadin-core to use only free components -->
-            <artifactId>vaadin</artifactId>
+            <artifactId>vaadin-core</artifactId>
             <exclusions>
                 <!-- Webjars are only needed when running in Vaadin 13 compatibility mode in V14.
                      Your add-on can support npm in the same version mode and V13 compatiblity mode at the same time,
