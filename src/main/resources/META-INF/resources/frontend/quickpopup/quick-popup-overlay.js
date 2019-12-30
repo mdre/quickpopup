@@ -13,7 +13,7 @@ class QuickPopupOverlay extends PolymerElement {
         return html `
                 <style>
                     .overlay {
-                        z-index: 200;
+                        z-index: var(--quick-popup-overlay-z-index,200);
                         position: fixed;
                         /*
                         Despite of what the names say, <vaadin-overlay> is just a container
