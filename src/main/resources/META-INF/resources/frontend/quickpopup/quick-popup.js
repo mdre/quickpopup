@@ -32,18 +32,18 @@ class QuickPopup extends PolymerElement {
     }
 
     updatePositionAndShow(targetid) {
-        //console.log("***************************************");
-        //console.log(this);
-        //var targetid = this.getProperty("targetid");
-
-        // 
-        console.log("Searching ", targetid, "...");
         var rect = targetid.getBoundingClientRect();
-        console.log(rect.top, rect.right, rect.bottom, rect.left);
-
         this.$server.targetPosition(rect.top, rect.right, rect.bottom, rect.left);
     }
 
+	__setPosition(top,left) {
+		var w = document.body.getBoundingClientRect().width; 
+		var q = this.$.popup.getBoundingClientRect();
+		if (left+q.width>w && w-q.width>0) left=w-q.width;
+		this.$.popup.style.top =top+"px";
+        this.$.popup.style.left=left+"px";
+    }
+        
     onPopupClick(event) {
         event.stopPropagation();
     }
