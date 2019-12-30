@@ -54,10 +54,6 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
     int x_offset = 0;
     int y_offset = 0;
     
-    /**
-     * track the visibility state off the component.
-     */
-    private boolean visibilityState = false;
     private List<IQuickPopupVisibilityEvent> visibilityEventListeners = new ArrayList<>();
     
     /**
@@ -197,7 +193,7 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
     }
     
     public boolean isVisible() {
-        return this.visibilityState;
+        return this.overlay.getParent().isPresent();
     }
     
     
