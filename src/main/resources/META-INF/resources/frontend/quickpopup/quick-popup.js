@@ -22,7 +22,7 @@ class QuickPopup extends PolymerElement {
             <div id="popup" 
                 class="popup card card-1"
                 on-click="onPopupClick"
-                >
+                ><slot></slot>
             </div>
             `;
     }

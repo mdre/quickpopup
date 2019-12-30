@@ -4,20 +4,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.vaadin.flow.component.ClientCallable;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.polymertemplate.EventHandler;
 import com.vaadin.flow.component.polymertemplate.Id;
-import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
-import com.vaadin.flow.templatemodel.TemplateModel;
 
 
 @Tag("quick-popup-overlay")
 //@StyleSheet("frontend://bower_components/menubar/cards.css")
 @JsModule("./quickpopup/quick-popup-overlay.js")
-class QuickPopupOverlay extends PolymerTemplate<TemplateModel>  {
+class QuickPopupOverlay extends Component  {
     private static final long serialVersionUID = 270472077985436933L;
     
     private final static Logger LOGGER = Logger.getLogger(QuickPopupOverlay.class.getName());
@@ -36,7 +34,7 @@ class QuickPopupOverlay extends PolymerTemplate<TemplateModel>  {
     
     public void addComponent(QuickPopup qp) {
         quickPopup = qp;
-        overlay.add(quickPopup);
+        getElement().appendChild(quickPopup.getElement());
     }
     
     /**
@@ -46,7 +44,7 @@ class QuickPopupOverlay extends PolymerTemplate<TemplateModel>  {
         UI.getCurrent().remove(this);
     }
     
-    @EventHandler
+    @ClientCallable
     private void onOverlayClick() {
         LOGGER.log(Level.FINER, "Overlay Click detectado!");
         this.quickPopup.hide();
