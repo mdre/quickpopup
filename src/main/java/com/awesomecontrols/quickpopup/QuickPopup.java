@@ -14,16 +14,12 @@ import com.vaadin.flow.component.HasTheme;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.JsModule;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.polymertemplate.Id;
-import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.dom.Element;
-import com.vaadin.flow.dom.Style;
 
 @Tag("quick-popup") 
 //@StyleSheet("frontend://bower_components/menubar/cards.css")
 @JsModule("./quickpopup/quick-popup.js")
-public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  HasSize, HasTheme, HasStyle, HasComponents {
+public class QuickPopup extends Component implements  HasSize, HasTheme, HasStyle, HasComponents {
     private static final long serialVersionUID = 8843104328921005320L;
 
     private final static Logger LOGGER = Logger.getLogger(QuickPopup.class.getName());
@@ -33,15 +29,11 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
         }
     }
     
-    @Id("popup")
-    Div popup;
-    
     double top;
     double left;
     
     Element targetId;
-    
-    
+        
     public enum Align {
         TOP_RIGHT,
         BOTTOM_RIGHT,
@@ -75,15 +67,12 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
      */
     public QuickPopup(Element target, Component content) {
         this.targetId = target;
-        
-        
+                
         overlay = new QuickPopupOverlay();
+        overlay.addComponent(this);
         this.content = content;
         
-        this.popup.removeAll();
-        this.popup.add(this.content);
-        
-        this.overlay.addComponent(this);
+        this.add(this.content);
     }
     
     private void setPosition(double top, double left) {
@@ -97,15 +86,15 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
      * @param content to shown
      */
     public void setContent(Component content) {
-        this.popup.removeAll();
-        this.popup.add(content);
+        removeAll();
+        add(content);
     }
     
     /**
      * Remove de popup content
      */
     public void clearContent() {
-        this.popup.removeAll();
+        this.removeAll();
     }
     
     /**
@@ -191,14 +180,9 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
         return this;
     }
     
-    public boolean isVisible() {
+	@Override
+	public boolean isVisible() {
         return this.visibilityState;
-    }
-    
-    
-    @Override
-    public Style getStyle() {
-        return popup.getStyle();
     }
     
     /**
