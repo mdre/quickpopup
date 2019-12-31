@@ -197,7 +197,7 @@ public class QuickPopup extends PolymerTemplate<IQuickPopupModel> implements  Ha
     }
     
     public boolean isVisible() {
-        return this.visibilityState;
+        return this.overlay.getParent().isPresent();
     }
     
     

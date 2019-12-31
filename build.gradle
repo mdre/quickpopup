@@ -51,10 +51,10 @@ task autoBuildNumber {
         def lines = propertiesFile.readLines()
 
         PrintWriter printWriter = new PrintWriter(propertiesFile)
-        
+        String versionNumber = ""
         lines.each {String line ->
             if (line.startsWith("version") ){
-                String versionNumber = line.tokenize("=")[1]
+                versionNumber = line.tokenize("=")[1]
                 String[] versionParts = versionNumber.tokenize(".")
                 // recalcular el build 
                 versionNumber = versionParts[0]+\
@@ -63,6 +63,25 @@ task autoBuildNumber {
                                 '.'+( versionParts.length==4 ? (versionParts[3].toInteger()+1).toString():"1")
                 
                 line = "version="+versionNumber
+                //                println line
+            }
+            printWriter.println(line)
+        }
+        printWriter.close()
+
+        // actualizar el POM
+        File pomFile = new File('pom.xml')
+        lines = pomFile.readLines()
+
+        printWriter = new PrintWriter(pomFile)
+        
+        def onlyFirst = true
+        lines.each {String line ->
+            // cambiar solo el primer <version>. 
+            // TODO: mejorar esto con un parser de xml
+            if (line.trim().startsWith("<version>") && onlyFirst ){
+                onlyFirst = false
+                line = "    <version>"+versionNumber+"-SNAPSHOOT</version>"
                 //                println line
             }
             printWriter.println(line)
@@ -239,7 +258,7 @@ task createVaadinDirectoryRelease(type: Zip) {
         File vdManifest = new File(vaadinDistDir+"/META-INF/MANIFEST.MF")
         vdManifest.write("Manifest-Version: 1.0\n")
         vdManifest << "Vaadin-Package-Version: 1\n"
-        vdManifest << "Vaadin-Addon: flowquickpopup-"+version+".jar\n"
+        vdManifest << "Vaadin-Addon: flowquickpopup-"+targetVersion+".jar\n"
         vdManifest << "Implementation-Vendor: MarceloDRe \n"
         vdManifest << "Implementation-Title: QuickPopup component for Vaadin Flow\n"
         vdManifest << "Implementation-Version: "+targetVersion+"\n"
