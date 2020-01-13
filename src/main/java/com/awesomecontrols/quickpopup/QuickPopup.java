@@ -46,10 +46,6 @@ public class QuickPopup extends Component implements  HasSize, HasTheme, HasStyl
     int x_offset = 0;
     int y_offset = 0;
     
-    /**
-     * track the visibility state off the component.
-     */
-    private boolean visibilityState = false;
     private List<IQuickPopupVisibilityEvent> visibilityEventListeners = new ArrayList<>();
     
     /**
@@ -180,14 +176,9 @@ public class QuickPopup extends Component implements  HasSize, HasTheme, HasStyl
         return this;
     }
     
-<<<<<<< HEAD
+    @Override
     public boolean isVisible() {
         return this.overlay.getParent().isPresent();
-=======
-	@Override
-	public boolean isVisible() {
-        return this.visibilityState;
->>>>>>> 0c16cb61d2fc773752a77ef9a74cce2c88490c3d
     }
     
     /**
