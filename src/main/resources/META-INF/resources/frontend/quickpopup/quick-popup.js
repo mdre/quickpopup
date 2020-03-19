@@ -1,6 +1,6 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 
-import "./card-styles.js";
+import "@vaadin/flow-frontend/quickpopup/card-styles.js";
 
 /**
  * `quick-popup`
@@ -36,14 +36,14 @@ class QuickPopup extends PolymerElement {
         this.$server.targetPosition(rect.top, rect.right, rect.bottom, rect.left);
     }
 
-	__setPosition(top,left) {
-		var w = document.body.getBoundingClientRect().width; 
-		var q = this.$.popup.getBoundingClientRect();
-		if (left+q.width>w && w-q.width>0) left=w-q.width;
-		this.$.popup.style.top =top+"px";
-        this.$.popup.style.left=left+"px";
+    __setPosition(top, left) {
+        var w = document.body.getBoundingClientRect().width;
+        var q = this.$.popup.getBoundingClientRect();
+        if (left + q.width > w && w - q.width > 0) left = w - q.width;
+        this.$.popup.style.top = top + "px";
+        this.$.popup.style.left = left + "px";
     }
-        
+
     onPopupClick(event) {
         event.stopPropagation();
     }

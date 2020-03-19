@@ -101,6 +101,7 @@ public class QuickPopup extends Component implements  HasSize, HasTheme, HasStyl
         UI.getCurrent().add(overlay);
         
         LOGGER.log(Level.FINER, "targetId: "+this.targetId);
+        // getElement().callJsFunction("updatePositionAndShow",this.targetId);
         getElement().callJsFunction("updatePositionAndShow",this.targetId);
         
         this.fireVisibilityChangeEvent();

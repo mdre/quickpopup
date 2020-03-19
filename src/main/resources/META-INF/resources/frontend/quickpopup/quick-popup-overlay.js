@@ -34,7 +34,7 @@ class QuickPopupOverlay extends PolymerElement {
 
                 <div id="overlay" 
                     class="overlay"
-                    on-click="__onOverlayClick"
+                    on-click="onOverlayClick"
                     ><slot></slot>
                 </div>
             `
@@ -44,8 +44,8 @@ class QuickPopupOverlay extends PolymerElement {
         return 'quick-popup-overlay';
     }
 
-    __onOverlayClick() {
-         this.$server.onOverlayClick();
+    onOverlayClick() {
+        this.$server.onOverlayClick();
     }
 }
 
