@@ -1,10 +1,5 @@
 package com.awesomecontrols.quickpopup;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.vaadin.flow.component.ClientCallable;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
@@ -15,6 +10,10 @@ import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.dom.Element;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Tag("quick-popup") 
 //@StyleSheet("frontend://bower_components/menubar/cards.css")
@@ -25,7 +24,7 @@ public class QuickPopup extends Component implements  HasSize, HasTheme, HasStyl
     private final static Logger LOGGER = Logger.getLogger(QuickPopup.class.getName());
     static {
         if (LOGGER.getLevel() == null) {
-            LOGGER.setLevel(Level.FINER);
+            LOGGER.setLevel(Level.INFO);
         }
     }
     

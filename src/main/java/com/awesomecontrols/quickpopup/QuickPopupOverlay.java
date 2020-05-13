@@ -1,8 +1,5 @@
 package com.awesomecontrols.quickpopup;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.vaadin.flow.component.ClientCallable;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Tag;
@@ -10,6 +7,8 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.polymertemplate.Id;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 @Tag("quick-popup-overlay")
@@ -21,7 +20,7 @@ class QuickPopupOverlay extends Component  {
     private final static Logger LOGGER = Logger.getLogger(QuickPopupOverlay.class.getName());
     static {
         if (LOGGER.getLevel() == null) {
-            LOGGER.setLevel(Level.FINER);
+            LOGGER.setLevel(Level.INFO);
         }
     }
     
