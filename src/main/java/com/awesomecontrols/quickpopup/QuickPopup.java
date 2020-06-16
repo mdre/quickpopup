@@ -68,6 +68,7 @@ public class QuickPopup extends Component implements  HasSize, HasTheme, HasStyl
         this.content = content;
         
         this.add(this.content);
+        getElement().callJsFunction("updatePositionAndShow",this.targetId);
     }
     
     private void setPosition(double top, double left) {

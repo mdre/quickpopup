@@ -1,5 +1,5 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-
+import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
 import "@vaadin/flow-frontend/quickpopup/card-styles.js";
 
 /**
@@ -9,7 +9,7 @@ import "@vaadin/flow-frontend/quickpopup/card-styles.js";
  * @customElement
  * @polymer
  */
-class QuickPopup extends PolymerElement {
+class QuickPopup extends ThemableMixin(PolymerElement) {
     static get template() {
         return html `
             <style include="card-styles">
