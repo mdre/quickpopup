@@ -1,0 +1,11 @@
+.popup {
+    /*z-index: 10000;*/
+    position: absolute;
+    visibility: hidden;
+}
+
+.popup.show {
+    visibility: visible;
+    opacity: 1;
+}
+

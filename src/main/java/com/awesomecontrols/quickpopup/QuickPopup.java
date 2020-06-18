@@ -1,6 +1,5 @@
 package com.awesomecontrols.quickpopup;
 
-import com.vaadin.flow.component.ClientCallable;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.HasSize;
@@ -16,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Tag("quick-popup") 
-//@StyleSheet("frontend://bower_components/menubar/cards.css")
 @JsModule("./quickpopup/quick-popup.js")
 public class QuickPopup extends Component implements  HasSize, HasTheme, HasStyle, HasComponents {
     private static final long serialVersionUID = 8843104328921005320L;
@@ -68,13 +66,6 @@ public class QuickPopup extends Component implements  HasSize, HasTheme, HasStyl
         this.content = content;
         
         this.add(this.content);
-        getElement().callJsFunction("updatePositionAndShow",this.targetId);
-    }
-    
-    private void setPosition(double top, double left) {
-        this.top = top;
-        this.left = left;
-        getElement().executeJs("this.__setPosition($0,$1)", top, left);
     }
     
     /**
@@ -101,8 +92,7 @@ public class QuickPopup extends Component implements  HasSize, HasTheme, HasStyl
         UI.getCurrent().add(overlay);
         
         LOGGER.log(Level.FINER, "targetId: "+this.targetId);
-        // getElement().callJsFunction("updatePositionAndShow",this.targetId);
-        getElement().callJsFunction("updatePositionAndShow",this.targetId);
+        getElement().callJsFunction("updatePositionAndShow",this.targetId, this.alignTo.toString(), this.x_offset, this.y_offset);
         
         this.fireVisibilityChangeEvent();
     }
@@ -111,40 +101,9 @@ public class QuickPopup extends Component implements  HasSize, HasTheme, HasStyl
      * Hide the popup
      */
     public void hide() {
+        getElement().callJsFunction("hide");
         this.overlay.hide();
         this.fireVisibilityChangeEvent();
-    }
-    
-    @ClientCallable
-    private void targetPosition(double top, double right, double bottom, double left) {
-        LOGGER.log(Level.FINER, "showInternal!!!!");
-        // agregar el overlay
-        double popupTop = top;
-        double popupLeft = right;
-        
-        switch (this.alignTo) {
-            case TOP_RIGHT:
-                popupTop = top + this.y_offset;
-                popupLeft = right + this.x_offset;
-                break;
-                
-            case BOTTOM_RIGHT:
-                popupTop = bottom + this.y_offset;
-                popupLeft = right + this.x_offset;
-                break;
-                
-            case BOTTOM_LEFT:
-                popupTop = bottom + this.y_offset;
-                popupLeft = left + this.x_offset;
-                break;
-                
-            case TOP_LEFT:
-                popupTop = top + this.y_offset;
-                popupLeft = left + this.x_offset;
-                break;
-        }
-        
-        this.setPosition(popupTop,popupLeft);
     }
     
     /**
