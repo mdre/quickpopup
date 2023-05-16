@@ -1,7 +1,7 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
-import "@vaadin/flow-frontend/quickpopup/card-styles.js";
-import "@vaadin/flow-frontend/quickpopup/quick-popup-css-loader.js";
+import "quickpopup/card-styles.js";
+import "quickpopup/quick-popup-css-loader.js";
 
 
 /**

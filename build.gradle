@@ -15,7 +15,7 @@ apply plugin: 'signing'
 def sonatypeUser = credentials.sonatypeUser
 def sonatypePassword = credentials.sonatypePassword
 
-def vaadinVersion = "14.1.20"
+def vaadinVersion = "23.3.12"
 
 description = rootProject.name
 
@@ -54,17 +54,22 @@ task autoBuildNumber {
         PrintWriter printWriter = new PrintWriter(propertiesFile)
         String versionNumber = ""
         lines.each {String line ->
-            if (line.startsWith("version") ){
-                versionNumber = line.tokenize("=")[1]
-                String[] versionParts = versionNumber.tokenize(".")
-                // recalcular el build 
-                versionNumber = versionParts[0]+\
+            if (line.startsWith("version")){
+                versionNumber = line.tokenize('=')[1]
+
+                if (versionNumber.endsWith("SNAPSHOT")) {
+                    // No modificar versiones snapshot
+                }
+                else {
+                    String[] versionParts = versionNumber.tokenize('.')
+                    // recalcular el build
+                    versionNumber = versionParts[0]+\
                                 '.'+versionParts[1]+\
                                 '.'+versionParts[2]+
-                                '.'+( versionParts.length==4 ? (versionParts[3].toInteger()+1).toString():"1")
-                
-                line = "version="+versionNumber
-                //                println line
+                            '.'+( versionParts.length==4 ? (versionParts[3].toInteger()+1).toString():'1')
+                }
+                line = 'version='+versionNumber
+                // println line
             }
             printWriter.println(line)
         }
@@ -281,7 +286,7 @@ uploadArchives {
     repositories {
         mavenDeployer {
             beforeDeployment {
-                MavenDeployment deployment -> signing.signPom(deployment) 
+                MavenDeployment deployment -> signing.signPom(deployment)
             }
             
             repository(url: "$sonatypeURLRelease") {

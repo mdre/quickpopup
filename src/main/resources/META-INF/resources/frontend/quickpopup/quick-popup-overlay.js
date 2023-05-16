@@ -1,6 +1,6 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
-import "@vaadin/flow-frontend/quickpopup/quick-popup-overlay-css-loader.js";
+import "quickpopup/quick-popup-overlay-css-loader.js";
 //import { onOverlayClick } from './QuickPopupOverlayEvents.js';
 
 /**

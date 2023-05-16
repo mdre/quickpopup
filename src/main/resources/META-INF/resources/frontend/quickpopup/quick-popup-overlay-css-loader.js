@@ -1,4 +1,4 @@
-import styles from '@vaadin/flow-frontend/quickpopup/quick-popup-overlay.css';
+import styles from 'quickpopup/quick-popup-overlay.css';
 
 const $_documentContainer = document.createElement('template');
 
